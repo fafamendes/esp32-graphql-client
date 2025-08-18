@@ -1,4 +1,4 @@
-[Voltar para a documentação em Português](README.md)
+[Voltar para a documentação em Português](.)
 
 # 🚀 ESP32 GraphQL Client
 
