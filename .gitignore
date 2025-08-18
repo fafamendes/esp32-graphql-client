@@ -1,0 +1,33 @@
+.pio
+.vscode
+.env
+gemini.md
+
+# Ignore PlatformIO build files
+.pio
+
+# Ignore VSCode workspace files
+.vscode
+
+# Ignore common files
+*.o
+*.a
+*.so
+*.lib
+*.dll
+*.exe
+*.out
+*.DS_Store
+
+# Ignore build and dist directories
+build/
+dist/
+
+# Ignore log files
+*.log
+
+# Ignore local configuration files
+config.h
+
+# Ignore main.cpp to allow for local testing
+src/main.cpp

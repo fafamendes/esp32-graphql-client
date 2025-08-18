@@ -1,0 +1,16 @@
+/**
+ * @file config.h.example
+ * @brief Example configuration file.
+ * 
+ * Copy this file to `config.h` and fill in your actual credentials.
+ * The `config.h` file is ignored by Git to keep your secrets safe.
+ */
+
+#pragma once
+
+#define WIFI_SSID "YOUR_WIFI_SSID"
+#define WIFI_PASSWORD "YOUR_WIFI_PASSWORD"
+
+// The public GitHub GraphQL API endpoint is used here as an example.
+// You may need to change this to your own server.
+#define GRAPHQL_ENDPOINT "https://api.github.com/graphql"
