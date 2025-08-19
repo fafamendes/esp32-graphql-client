@@ -1,97 +1,85 @@
+[Leia em Português](README.pt.md)
+
 # 🚀 ESP32 GraphQL Client
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Um cliente GraphQL robusto e de fácil utilização para a plataforma ESP32, projetado para simplificar a comunicação com APIs GraphQL em projetos de IoT. Inspirado na simplicidade e poder do Apollo Client, esta biblioteca torna trivial a tarefa de enviar queries e mutations, permitindo que você se concentre na lógica do seu aplicativo, e não na complexidade da comunicação de rede.
+A robust and easy-to-use GraphQL client for the ESP32 platform, designed to simplify communication with GraphQL APIs in IoT projects. Inspired by the simplicity and power of Apollo Client, this library makes sending queries and mutations trivial, allowing you to focus on your application's logic, not the complexity of network communication.
 
-## 📜 Índice
-* [Introdução](#por-que-usar-esta-biblioteca)
-* [Funcionalidades](#funcionalidades-principais)
-* [Status e Roadmap](#status-das-funcionalidades)
-* [Instalação e Uso](#instalação)
-* [API de Referência](#api-de-referência)
-* [Exemplos](#exemplos)
-* [Como Contribuir](#como-contribuir)
-* [Read in English](README.en.md)
+## 📜 Table of Contents
+* [Introduction](#why-use-this-library)
+* [Features](#-features)
+* [Installation](#installation)
+* [Getting Started](#getting-started)
+* [Reference API](#reference-api)
+* [Examples](#examples)
+* [How to Contribute](#how-to-contribute)
+* [Acknowledgements](#acknowledgements)
+* [License](#license)
 
-## 🤔 Por que usar esta biblioteca?
+## 🤔 Why use this library?
 
-Em um mundo cada vez mais conectado, dispositivos IoT precisam se comunicar com serviços na nuvem de forma eficiente. GraphQL se destaca como uma alternativa poderosa às APIs REST tradicionais, permitindo que o cliente solicite exatamente os dados de que precisa. Esta biblioteca foi criada para preencher a lacuna de um cliente GraphQL completo e fácil de usar no ecossistema do ESP32.
+In an increasingly connected world, IoT devices need to communicate with cloud services efficiently. GraphQL stands out as a powerful alternative to traditional REST APIs, allowing the client to request exactly the data it needs. This library was created to fill the gap of a complete and easy-to-use GraphQL client in the ESP32 ecosystem.
 
-**Casos de Uso Comuns:**
+**Common Use Cases:**
 
-- **Monitoramento Remoto:** Enviar dados de sensores (temperatura, umidade, etc.) de um ESP32 para um dashboard em tempo real.
-- **Controle de Dispositivos:** Receber comandos de um servidor para controlar atuadores (relés, motores, luzes) conectados ao ESP32.
-- **Autenticação Segura:** Utilizar cabeçalhos de autorização para se comunicar com APIs GraphQL protegidas.
-- **Projetos de Automação Residencial:** Integrar seus dispositivos ESP32 a um sistema de automação residencial que utiliza GraphQL.
+- **Remote Monitoring:** Send sensor data (temperature, humidity, etc.) from an ESP32 to a real-time dashboard.
+- **Device Control:** Receive commands from a server to control actuators (relays, motors, lights) connected to the ESP32.
+- **Secure Authentication:** Use authorization headers to communicate with protected GraphQL APIs.
+- **Home Automation Projects:** Integrate your ESP32 devices into a home automation system that uses GraphQL.
 
-## 📣 Anúncio: Exemplo de API em Nest.js em Breve!
+## 📣 Announcement: Nest.js API Example Coming Soon!
 
-Para facilitar ainda mais o desenvolvimento e os testes, estamos preparando um repositório de exemplo com uma API GraphQL completa construída com **Nest.js**. Este exemplo servirá como um backend de referência para você testar suas integrações com o `esp32-graphql-client`.
+To further facilitate development and testing, we are preparing an example repository with a complete GraphQL API built with **Nest.js**. This example will serve as a reference backend for you to test your integrations with the `esp32-graphql-client`.
 
-Fique de olho neste repositório para mais novidades!
+Keep an eye on this repository for more news!
 
-## ✨ Funcionalidades Principais
+## ✨ Features
 
-- **Queries e Mutations:** Suporte completo para as operações fundamentais do GraphQL.
-- **Cliente HTTP Configurável:** Defina o endpoint do seu servidor de forma simples e direta.
-- **Cabeçalhos Customizados:** Adicione cabeçalhos HTTP para autenticação, como `Authorization: Bearer ...`, ou qualquer outro metadado necessário.
-- **Tratamento de Erros:** Diferencia e reporta erros de rede (falha na conexão) de erros do GraphQL (retornados no array `errors` da resposta).
-- **Leve e Eficiente:** Construído com foco em performance e baixo consumo de memória, utilizando `ArduinoJson` para parsing e serialização.
+| Status | Feature | Notes |
+| :---: | :--- | :--- |
+| ✅ | Queries & Mutations | Fully supported. |
+| ✅ | Custom Headers | Fully supported. |
+| ✅ | Error Handling | Differentiates between network and GraphQL errors. |
+| 🟡 | File Uploads | Not natively supported. Requires manual implementation. |
+| 🔵 | Subscriptions | **Planned:** Support via WebSockets is on the roadmap. |
+| 🔵 | In-Memory Cache | **Planned:** Optional caching for queries. |
+| 🔵 | Persisted Queries | **Planned:** Support for persisted queries. |
 
-## 🚦 Status das Funcionalidades
+## 📦 Installation
 
-Esta seção detalha o estado atual das funcionalidades da biblioteca:
+The easiest way to install this library is through the PlatformIO library manager.
 
-- ✅ **Queries:** Totalmente suportado.
-- ✅ **Mutations:** Totalmente suportado.
-- ✅ **Cabeçalhos Customizados:** Totalmente suportado.
-- ✅ **Tratamento de Erros:** Totalmente suportado.
-- 🟡 **Upload de Arquivos:** Não suportado nativamente. A biblioteca não lida com requisições `multipart/form-data`. Pode ser implementado manualmente com a biblioteca `HTTPClient` do ESP32, mas exigiria manipulação manual do corpo da requisição e dos cabeçalhos.
-- ❌ **Subscriptions:** Não suportado (requer WebSockets).
-- ❌ **Cache em Memória:** Não suportado.
-- ❌ **Queries Persistidas:** Não suportado.
-
-## 🗺️ Roadmap
-
-- [ ] Suporte a Subscriptions GraphQL via WebSockets.
-- [ ] Implementação de um cache em memória para queries.
-- [ ] Suporte a queries persistidas.
-
-## 📦 Instalação
-
-A maneira mais fácil de instalar esta biblioteca é através do gerenciador de bibliotecas do PlatformIO.
-
-Adicione a seguinte linha à seção `lib_deps` do seu arquivo `platformio.ini`:
+Add the following line to the `lib_deps` section of your `platformio.ini` file:
 
 ```ini
 lib_deps =
     https://github.com/fafamendes/esp32-graphql-client.git
 ```
 
-O PlatformIO irá clonar este repositório e instalar a biblioteca e suas dependências (`ArduinoJson`) automaticamente.
+PlatformIO will clone this repository and automatically install the library and its dependencies (`ArduinoJson`).
 
-## 🚀 Como Começar
+## 🚀 Getting Started
 
-Para usar a biblioteca em seu projeto, siga estes passos:
+To use the library in your project, follow these steps:
 
-1.  **Inclua a biblioteca:**
+1.  **Include the library:**
 
     ```cpp
     #include <GraphQLClient.h>
     ```
 
-2.  **Instancie o cliente com o endpoint do seu servidor:**
+2.  **Instantiate the client with your server endpoint:**
 
     ```cpp
-    GraphQLClient client("https://countries.trevorblades.com/"); // Exemplo com uma API pública
+    GraphQLClient client("https://countries.trevorblades.com/"); // Example with a public API
     ```
 
-3.  **Execute uma query:**
+3.  **Execute a query:**
 
     ```cpp
     void loop() {
-      // 1. Defina a query e as variáveis
+      // 1. Define the query string
       const char* getCountryQuery = R"(
         query GetCountry($code: ID!) {
           country(code: $code) {
@@ -102,134 +90,145 @@ Para usar a biblioteca em seu projeto, siga estes passos:
         }
       )";
       
-      JsonDocument variables;
-      variables["code"] = "BR"; // Código do país (Brasil)
+      // 2. Create a StaticJsonDocument for the variables.
+      // Using StaticJsonDocument is highly recommended to avoid memory fragmentation.
+      StaticJsonDocument<100> variables;
+      variables["code"] = "BR"; // Country code (Brazil)
 
-      // 2. Execute a query
-      GraphQLResponse response = client.query(getCountryQuery, variables);
+      // 3. Execute the query
+      GraphQLResponse response = client.query(getCountryQuery, variables.as<JsonObject>());
 
-      // 3. Use os dados
-      if (!response.error) {
-        const char* countryName = response.data["data"]["country"]["name"];
-        Serial.print("Nome do país: ");
+      // 4. Process the response
+      // IMPORTANT: The data in the 'response' object is temporary and will be
+      // cleared on the next request. Copy any values you need to keep.
+      if (!response.hasError) {
+        // Safely copy the data you need
+        const char* countryName = response.data["country"]["name"];
+        String capital = response.data["country"]["capital"].as<String>();
+
+        Serial.print("Country Name: ");
         Serial.println(countryName);
+        Serial.print("Capital: ");
+        Serial.println(capital);
       } else {
-        Serial.print("Erro na requisição: ");
-        Serial.println(response.errorMessage);
+        Serial.print("Error: ");
+        Serial.println(response.getErrorMessage());
       }
 
       delay(60000);
     }
     ```
 
-## 📚 API de Referência
+## 📚 Reference API
 
 ### `GraphQLClient(const char* endpoint)`
 
-Cria uma nova instância do cliente GraphQL.
+Creates a new instance of the GraphQL client.
 
-- **`endpoint`**: O URL do seu servidor GraphQL.
+- **`endpoint`**: The URL of your GraphQL server.
 
 ### `void setHeader(const char* key, const char* value)`
 
-Adiciona um cabeçalho HTTP customizado a todas as requisições.
+Adds a custom HTTP header to all requests. Useful for authentication.
 
-- **`key`**: A chave do cabeçalho (ex: `"Authorization"`).
-- **`value`**: O valor do cabeçalho (ex: `"Bearer SEU_TOKEN"`).
+- **`key`**: The header key (e.g., `"Authorization"`).
+- **`value`**: The header value (e.g., `"Bearer YOUR_TOKEN"`).
 
-### `GraphQLResponse query(const char* query, JsonDocument& variables)`
+### `GraphQLResponse query(const char* query, JsonObject variables)`
 
-Executa uma query GraphQL.
+Executes a GraphQL query.
 
-- **`query`**: A string da query GraphQL.
-- **`variables`**: Um `JsonDocument` do ArduinoJson com as variáveis da query.
+- **`query`**: The GraphQL query string.
+- **`variables`**: A `JsonObject` from an `ArduinoJson` document containing the query variables.
 
-### `GraphQLResponse mutation(const char* mutation, JsonDocument& variables)`
+### `GraphQLResponse mutate(const char* mutation, JsonObject variables)`
 
-Executa uma mutation GraphQL.
+Executes a GraphQL mutation.
 
-- **`mutation`**: A string da mutation GraphQL.
-- **`variables`**: Um `JsonDocument` do ArduinoJson com as variáveis da mutation.
+- **`mutation`**: The GraphQL mutation string.
+- **`variables`**: A `JsonObject` from an `ArduinoJson` document containing the mutation variables.
 
 ### `GraphQLResponse`
 
-Um struct que contém a resposta da requisição.
+A struct that contains the response from the request.
 
-- **`bool error`**: `true` se ocorreu um erro.
-- **`String errorMessage`**: A mensagem de erro, se houver.
-- **`JsonDocument data`**: Os dados da resposta em um `JsonDocument`.
-- **`int httpCode`**: O código de status HTTP da requisição.
+- **`const JsonObject data`**: A read-only JSON object with the `data` field from the response.
+- **`const JsonArray errors`**: A read-only JSON array with the `errors` field from the response.
+- **`bool hasError`**: `true` if the `errors` array is not empty.
+- **`String getErrorMessage()`**: Returns a formatted string of all error messages.
 
-## 📂 Exemplos
+> ⚠️ **Important:** The `data` and `errors` fields are views into a temporary internal buffer. Their content is only valid until the next request is made. If you need to store data from the response, **you must copy it** to your own variables immediately after receiving the response.
 
-Você pode encontrar exemplos de uso na pasta `examples`:
+## 📂 Examples
 
-- **`basic_query`**: Um exemplo simples d
-## Agradecimentos
+You can find usage examples in the `examples` folder.
 
-Este projeto utiliza a fantástica biblioteca [ArduinoJson](https://arduinojson.org/) de Benoît Blanchon para o parse e serialização de JSON. Um agradecimento especial ao autor por seu excelente trabalho e por tornar o trabalho com JSON em microcontroladores tão eficiente.
+## 🙏 Acknowledgements
 
-Agradecemos também à comunidade e aos desenvolvedores do [ESP32 Arduino Core](https://github.com/espressif/arduino-esp32) por fornecerem uma plataforma robusta e rica em recursos para o desenvolvimento de aplicações embarcadas.
+This project uses the fantastic [ArduinoJson](https://arduinojson.org/) library by Benoît Blanchon for JSON parsing and serialization. A special thanks to the author for his excellent work and for making working with JSON on microcontrollers so efficient.
 
-## 🛠️ Como Contribuir
+We also thank the community and developers of the [ESP32 Arduino Core](https://github.com/espressif/arduino-esp32) for providing a robust and feature-rich platform for embedded application development.
 
-Se você deseja contribuir para o desenvolvimento desta biblioteca, siga estes passos:
+## 🛠️ How to Contribute
 
-### 1. Clone o Repositório
+If you want to contribute to the development of this library, follow these steps:
+
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/fafamendes/esp32-graphql-client.git
 cd esp32-graphql-client
 ```
 
-### 2. Crie um `main.cpp` para Testes
+### 2. Create a `main.cpp` for Testing
 
-Como o `src/main.cpp` não faz parte do repositório, você pode criar o seu próprio para testar suas modificações. Crie um arquivo `src/main.cpp` com o seguinte conteúdo:
+Since `src/main.cpp` is not part of the repository, you can create your own to test your modifications. Create a `src/main.cpp` file with the following content:
 
 ```cpp
 #include <Arduino.h>
 #include <WiFi.h>
 #include "GraphQLClient.h"
 
-// --- Configurações de Wi-Fi ---
-const char* ssid = "SEU_WIFI_SSID";
-const char* password = "SUA_WIFI_SENHA";
+// --- Wi-Fi Settings ---
+const char* ssid = "YOUR_WIFI_SSID";
+const char* password = "YOUR_WIFI_PASSWORD";
 
-// --- Configurações do Cliente GraphQL ---
-GraphQLClient client("http://seu-servidor.com/graphql");
+// --- GraphQL Client Settings ---
+GraphQLClient client("http://your-server.com/graphql");
 
 void setup() {
   Serial.begin(115200);
   delay(100);
 
-  // Conectar ao Wi-Fi
-  Serial.print("Conectando a ");
+  // Connect to Wi-Fi
+  Serial.print("Connecting to ");
   Serial.println(ssid);
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
-  Serial.println("\nWiFi conectado!");
-  Serial.print("Endereço IP: ");
+  Serial.println("
+WiFi connected!");
+  Serial.print("IP Address: ");
   Serial.println(WiFi.localIP());
 }
 
 void loop() {
-  // Seu código de teste aqui
+  // Your test code here
 }
 ```
 
-**Importante:** Lembre-se de que o `src/main.cpp` não será enviado para o Git, pois está no `.gitignore`.
+**Important:** Remember that `src/main.cpp` will not be pushed to Git, as it is in the `.gitignore` file.
 
-### 3. Faça suas Alterações
+### 3. Make Your Changes
 
-Agora você pode modificar os arquivos da biblioteca (`src/GraphQLClient.cpp` e `include/GraphQLClient.h`) e testá-los usando o seu `main.cpp`.
+Now you can modify the library files (`src/GraphQLClient.cpp` and `include/GraphQLClient.h`) and test them using your `main.cpp`.
 
-### 4. Envie um Pull Request
+### 4. Submit a Pull Request
 
-Depois de fazer suas alterações e testá-las, envie um Pull Request para que possamos revisar e integrar suas contribuições.
+After making your changes and testing them, submit a Pull Request so we can review and integrate your contributions.
 
-## 📄 Licença
+## 📄 License
 
-Este projeto está licenciado sob a Licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
